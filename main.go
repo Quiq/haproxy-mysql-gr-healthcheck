@@ -49,8 +49,8 @@ func main() {
 		os.Exit(0)
 	}
 
-	if !strings.HasSuffix(haproxyBackendName, "_rw") && !strings.HasSuffix(haproxyBackendName, "_ro") {
-		debugMsg(debugFlag, "Haproxy backend name does not end with either _rw or _ro.")
+	if !strings.HasSuffix(haproxyBackendName, "_primary") && !strings.HasSuffix(haproxyBackendName, "_secondary") {
+		debugMsg(debugFlag, "Haproxy backend name does not end with either _primary or _secondary.")
 		os.Exit(1)
 	}
 
@@ -78,11 +78,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if strings.HasSuffix(haproxyBackendName, "_rw") && row.ReadOnly == "NO" {
-		debugMsg(debugFlag, "HEALTHCHECK RW - OK")
+	if strings.HasSuffix(haproxyBackendName, "_primary") && row.ReadOnly == "NO" {
+		debugMsg(debugFlag, "HEALTHCHECK PRIMARY - OK")
 		return
-	} else if strings.HasSuffix(haproxyBackendName, "_ro") && row.ReadOnly == "YES" {
-		debugMsg(debugFlag, "HEALTHCHECK RO - OK")
+	} else if strings.HasSuffix(haproxyBackendName, "_secondary") && row.ReadOnly == "YES" {
+		debugMsg(debugFlag, "HEALTHCHECK SECONDARY - OK")
 		return
 	}
 

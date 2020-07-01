@@ -16,18 +16,21 @@ global
     external-check
     default-server inter 1s rise 1 fall 1 on-marked-down shutdown-sessions
 
-backend mysql_rw
+backend healthcheck_primary
     option external-check
     external-check path "mysql_user:mysql_pass"
     external-check command /opt/haproxy-mysql/haproxy-mysql-gr-healthcheck
     server mysql1_srv 127.0.0.1:3306 check inter 1s fastinter 500ms rise 1 fall 2
 
-backend mysql_ro
+backend healthcheck_secondary
     option external-check
     external-check path "mysql_user:mysql_pass"
     external-check command /opt/haproxy-mysql/haproxy-mysql-gr-healthcheck
     server mysql1_srv 127.0.0.1:3306 check inter 5s fastinter 500ms rise 1 fall 2
 ```
+
+Backends running haproxy-mysql-gr-healthcheck should be given a name with the suffix of either
+_primary or _secondary corresponding to the actual role of a Group Replication member.
 
 MySQL user grants:
 ```
