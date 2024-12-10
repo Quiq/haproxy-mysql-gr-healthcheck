@@ -12,8 +12,7 @@ import (
 )
 
 const (
-	query       = "SELECT * FROM sys.gr_member_routing_candidate_status"
-	mysqlParams = "collation=utf8mb4_0900_ai_ci"
+	query = "SELECT * FROM sys.gr_member_routing_candidate_status"
 )
 
 var (
@@ -54,7 +53,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	db, err := sql.Open("mysql", fmt.Sprintf("%s@tcp(%s)/?%s", mysqlCredentials, mysqlAddress, mysqlParams))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s@tcp(%s)/", mysqlCredentials, mysqlAddress))
 	if err != nil {
 		fmt.Println("Error connecting to MySQL", err)
 		os.Exit(1)

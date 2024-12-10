@@ -1,2 +1,1 @@
-haproxy-mysql-gr-healthcheck.amd64
-haproxy-mysql-gr-healthcheck.arm64
+haproxy-mysql-gr-healthcheck.*
